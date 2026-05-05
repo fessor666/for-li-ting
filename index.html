@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>💕 给李婷的惊喜</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+            background: #1a0a14;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* ============================
+               Floating Hearts / Petals
+            ============================ */
+        .floating-container {
+            position: fixed; inset: 0;
+            pointer-events: none; z-index: 0;
+            overflow: hidden;
+        }
+        .float-item {
+            position: absolute; bottom: -60px;
+            animation: floatUp linear infinite;
+            user-select: none;
+            opacity: 0.6;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.6; }
+            100% { transform: translateY(-110vh) rotate(720deg) scale(0.2); opacity: 0; }
+        }
+
+        /* ============================
+               Sparkle click effect
+            ============================ */
+        .sparkle {
+            position: fixed; pointer-events: none; z-index: 999;
+            animation: sparkleOut 1s ease-out forwards;
+            font-size: 18px;
+        }
+        @keyframes sparkleOut {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-80px) scale(0.1); }
+        }
+
+        /* ============================
+               Section common
+            ============================ */
+        section {
+            position: relative; z-index: 1;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .section-inner {
+            max-width: 640px; width: 100%;
+            text-align: center;
+        }
+
+        /* ============================
+               HERO
+            ============================ */
+        #hero {
+            background: radial-gradient(ellipse at center bottom, #2d0a1e 0%, #1a0a14 60%);
+            justify-content: center;
+            padding-top: 40px;
+        }
+        #hero .her-name {
+            font-size: clamp(48px, 12vw, 90px);
+            font-weight: 800;
+            background: linear-gradient(135deg, #f8bbd0, #ec407a, #f06292, #ff80ab);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            letter-spacing: 6px;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        #hero .tagline {
+            font-size: clamp(18px, 4vw, 28px);
+            color: #f8bbd0;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.6s forwards;
+        }
+        #hero .sub-hero {
+            font-size: 15px; color: #ad1457; letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.2s forwards;
+        }
+        #hero .scroll-hint {
+            margin-top: 48px;
+            font-size: 13px; color: #7f4a5e; letter-spacing: 2px;
+            animation: bounceHint 2s ease-in-out infinite;
+        }
+        @keyframes bounceHint {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* heart icon big */
+        .big-heart {
+            font-size: 60px;
+            animation: heartBeat 1.6s ease-in-out infinite;
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: heartBeat 1.6s ease-in-out infinite, fadeUp 0.8s ease 0.3s forwards;
+        }
+        @keyframes heartBeat {
+            0%,100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+            60% { transform: scale(1); }
+        }
+
+        /* ============================
+               SURPRISE BOXES (grid)
+            ============================ */
+        #surprises {
+            background: linear-gradient(180deg, #1a0a14 0%, #220d1a 100%);
+        }
+        #surprises h2 {
+            font-size: 28px; margin-bottom: 12px;
+            background: linear-gradient(90deg, #f48fb1, #ec407a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        #surprises .desc {
+            color: #9e6a7a; font-size: 15px; margin-bottom: 36px;
+        }
+        .surprise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            max-width: 520px; margin: 0 auto;
+        }
+        .surprise-box {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 28px 12px 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            position: relative;
+            backdrop-filter: blur(4px);
+        }
+        .surprise-box:hover {
+            transform: translateY(-4px) scale(1.03);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(236,64,122,0.3);
+        }
+        .surprise-box:active { transform: scale(0.95); }
+        .surprise-box .icon {
+            font-size: 36px; margin-bottom: 10px; display: block;
+        }
+        .surprise-box .label {
+            font-size: 15px; font-weight: 600; color: #f8bbd0;
+        }
+        .surprise-box .badge {
+            position: absolute; top: 6px; right: 6px;
+            background: #ec407a; color: #fff;
+            font-size: 10px; padding: 2px 8px; border-radius: 10px;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .surprise-box.opened .badge {
+            opacity: 0 !important;
+        }
+        .surprise-box:not(.opened) .badge {
+            opacity: 1;
+        }
+
+        /* ============================
+               Surprise modal / overlay
+            ============================ */
+        .surprise-overlay {
+            position: fixed; inset: 0; z-index: 200;
+            display: none;
+            align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            padding: 20px;
+        }
+        .surprise-overlay.show { display: flex; }
+        .surprise-modal {
+            background: linear-gradient(145deg, #2d0a1e, #1a0a14);
+            border: 1px solid rgba(236,64,122,0.2);
+            border-radius: 28px;
+            padding: 40px 32px;
+            max-width: 440px; width: 100%;
+            text-align: center;
+            animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .surprise-modal .big-icon { font-size: 56px; margin-bottom: 12px; display: block; }
+        .surprise-modal h3 { font-size: 22px; color: #f48fb1; margin-bottom: 10px; }
+        .surprise-modal p {
+            font-size: 16px; color: #e0b0c0; line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .surprise-modal .btn-close-modal {
+            padding: 10px 32px; border: none; border-radius: 50px;
+            background: linear-gradient(135deg, #ec407a, #d81b60);
+            color: #fff; font-size: 15px; font-weight: 600;
+            cursor: pointer; font-family: inherit;
+            transition: all 0.3s;
+        }
+        .surprise-modal .btn-close-modal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(233,30,99,0.3);
+        }
+
+        /* ============================
+               LOVE QUIZ
+            ============================ */
+        #quiz {
+            background: linear-gradient(180deg, #220d1a 0%, #1a0a14 100%);
+        }
+        #quiz h2 {
+            font-size: 28px;
+            background: linear-gradient(90deg, #f48fb1, #ec407a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+        #quiz .sub-q {
+            color: #9e6a7a; font-size: 15px; margin-bottom: 28px;
+        }
+        .quiz-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 28px 24px;
+            max-width: 480px; margin: 0 auto;
+        }
+        .quiz-question {
+            font-size: 18px; font-weight: 600; color: #f8bbd0;
+            margin-bottom: 20px;
+        }
+        .quiz-options {
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .quiz-option {
+            padding: 12px 18px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            background: rgba(255,255,255,0.04);
+            color: #e0b0c0; font-size: 15px;
+            cursor: pointer; transition: all 0.3s; font-family: inherit;
+            text-align: left;
+        }
+        .quiz-option:hover {
+            background: rgba(236,64,122,0.15);
+            border-color: rgba(236,64,122,0.3);
+            transform: translateX(4px);
+        }
+        .quiz-option.correct {
+            background: rgba(76,175,80,0.2);
+            border-color: #4caf50;
+            color: #81c784;
+        }
+        .quiz-option.wrong {
+            background: rgba(244,67,54,0.2);
+            border-color: #f44336;
+            color: #ef9a9a;
+        }
+        .quiz-option:disabled { cursor: default; }
+        .quiz-option.correct::after {
+            content: ' ✅'; float: right;
+        }
+        .quiz-option.wrong::after {
+            content: ' ❌'; float: right;
+        }
+        .quiz-progress {
+            margin-top: 16px;
+            display: flex; gap: 8px; justify-content: center;
+        }
+        .quiz-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+        .quiz-dot.done { background: #ec407a; }
+        .quiz-dot.wrong-dot { background: #f44336; }
+        .quiz-score {
+            margin-top: 16px;
+            font-size: 15px; color: #9e6a7a;
+        }
+        .quiz-score strong { color: #f48fb1; }
+
+        /* ============================
+               REASONS (scrollable list)
+            ============================ */
+        #reasons {
+            background: radial-gradient(ellipse at center, #2a0a1c, #1a0a14);
+        }
+        #reasons h2 {
+            font-size: 28px;
+            background: linear-gradient(90deg, #f48fb1, #ec407a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+        #reasons .sub-r {
+            color: #9e6a7a; font-size: 15px; margin-bottom: 28px;
+        }
+        .reasons-container {
+            max-width: 460px; margin: 0 auto;
+            display: flex; flex-direction: column; gap: 10px;
+            max-height: 420px; overflow-y: auto;
+            padding-right: 8px;
+        }
+        .reasons-container::-webkit-scrollbar { width: 4px; }
+        .reasons-container::-webkit-scrollbar-track { background: transparent; }
+        .reasons-container::-webkit-scrollbar-thumb { background: #7f4a5e; border-radius: 4px; }
+
+        .reason-item {
+            padding: 14px 20px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            text-align: left;
+            font-size: 15px;
+            color: #e0b0c0;
+            transition: all 0.4s ease;
+            transform: translateX(-20px);
+            opacity: 0;
+        }
+        .reason-item.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .reason-item .num {
+            color: #ec407a; font-weight: 600; margin-right: 8px;
+        }
+
+        /* ============================
+               LOVE LETTER (typewriter + reveal)
+            ============================ */
+        #letter-section {
+            background: linear-gradient(180deg, #1a0a14 0%, #220d1a 100%);
+        }
+        #letter-section h2 {
+            font-size: 28px;
+            background: linear-gradient(90deg, #f48fb1, #ec407a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+        .love-letter-box {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 32px 28px;
+            max-width: 500px; margin: 0 auto;
+            text-align: left;
+            min-height: 200px;
+            position: relative;
+        }
+        .love-letter-box .letter-text {
+            font-size: 16px; line-height: 2; color: #e0b0c0;
+        }
+        .love-letter-box .letter-text .highlight {
+            color: #f48fb1; font-weight: 600;
+        }
+        .love-letter-box .cursor-blink {
+            display: inline-block;
+            width: 2px; height: 1.1em;
+            background: #ec407a;
+            margin-left: 2px;
+            vertical-align: text-bottom;
+            animation: blink 0.8s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* signature */
+        .letter-sign {
+            margin-top: 20px; text-align: right;
+            font-size: 15px; color: #f48fb1;
+            opacity: 0; transition: opacity 0.8s;
+        }
+        .letter-sign.show { opacity: 1; }
+
+        /* ============================
+               GRAND FINALE
+            ============================ */
+        #finale {
+            background: radial-gradient(ellipse at center, #2d0a1e 0%, #1a0a14 70%);
+            min-height: 70vh;
+        }
+        #finale .big-text {
+            font-size: clamp(28px, 6vw, 44px);
+            font-weight: 700;
+            background: linear-gradient(135deg, #f8bbd0, #ec407a, #ff80ab);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+        #finale p {
+            color: #9e6a7a; font-size: 16px; margin-bottom: 24px;
+        }
+        #finale .btn-finale {
+            padding: 14px 48px; border: none; border-radius: 50px;
+            background: linear-gradient(135deg, #ec407a, #d81b60);
+            color: #fff; font-size: 18px; font-weight: 600;
+            cursor: pointer; font-family: inherit;
+            transition: all 0.3s;
+            box-shadow: 0 8px 32px rgba(233,30,99,0.3);
+        }
+        #finale .btn-finale:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 12px 40px rgba(233,30,99,0.4);
+        }
+
+        /* ============================
+               Confetti canvas
+            ============================ */
+        #confetti-canvas {
+            position: fixed; inset: 0; z-index: 300;
+            pointer-events: none;
+        }
+
+        /* ============================
+               Photo wall at finale
+            ============================ */
+        .photo-wall {
+            display: flex; gap: 12px; justify-content: center;
+            flex-wrap: wrap; margin-bottom: 24px;
+        }
+        .photo-wall .polaroid {
+            width: 110px; height: 130px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 6px;
+            transform: rotate(var(--r));
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
+        .photo-wall .polaroid img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+        }
+        .photo-wall .polaroid:hover {
+            transform: rotate(0deg) scale(1.15);
+            z-index: 10;
+            box-shadow: 0 8px 32px rgba(236,64,122,0.3);
+        }
+
+        /* Photo lightbox */
+        .lightbox {
+            position: fixed; inset: 0; z-index: 500;
+            display: none;
+            align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(12px);
+            padding: 20px;
+            cursor: pointer;
+        }
+        .lightbox.show { display: flex; }
+        .lightbox img {
+            max-width: 90vw; max-height: 85vh;
+            border-radius: 16px;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+            animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+        }
+
+        /* ============================
+               Streamer text reveal
+            ============================ */
+        .streamer-text {
+            font-size: 13px; color: #7f4a5e; letter-spacing: 4px;
+            margin-top: 20px;
+            opacity: 0.6;
+        }
+
+        /* ============================
+               Responsive
+            ============================ */
+        @media (max-width: 480px) {
+            section { padding: 40px 16px; }
+            .surprise-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .surprise-box { padding: 20px 10px 16px; }
+            .surprise-box .icon { font-size: 28px; }
+            .surprise-box .label { font-size: 13px; }
+            .love-letter-box { padding: 24px 16px; }
+            .quiz-card { padding: 20px 16px; }
+            .photo-wall .polaroid { width: 70px; height: 80px; font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== Floating container ===== -->
+    <div class="floating-container" id="floatingContainer"></div>
+
+    <!-- ===== Confetti canvas ===== -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- ===== Photo lightbox ===== -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <img id="lightboxImg" src="" alt="放大照片" />
+    </div>
+
+    <!-- ===== Surprise overlay ===== -->
+    <div class="surprise-overlay" id="surpriseOverlay">
+        <div class="surprise-modal">
+            <span class="big-icon" id="modalIcon">🎁</span>
+            <h3 id="modalTitle">惊喜！</h3>
+            <p id="modalText">内容在这里</p>
+            <button class="btn-close-modal" id="modalClose">知道了 💕</button>
+        </div>
+    </div>
+
+
+    <!-- ================================================================
+    HERO
+    ================================================================ -->
+    <section id="hero">
+        <div class="section-inner">
+            <div class="big-heart">💗</div>
+            <div class="her-name">李 婷</div>
+            <div class="tagline">这是专门给你的惊喜 💕</div>
+            <div class="sub-hero">点一下屏幕，会有小星星哦 ✨</div>
+            <div class="scroll-hint">↓ 往下滑，还有更多惊喜 ↓</div>
+        </div>
+    </section>
+
+
+    <!-- ================================================================
+    SURPRISE BOXES
+    ================================================================ -->
+    <section id="surprises">
+        <div class="section-inner">
+            <h2>🎀 点开属于你的惊喜</h2>
+            <div class="desc">每个盒子里都藏着一句我想对你说的话 💌</div>
+            <div class="surprise-grid" id="surpriseGrid">
+                <div class="surprise-box" data-index="0" data-opened="false">
+                    <span class="badge">NEW</span>
+                    <span class="icon">🌸</span>
+                    <span class="label">第一眼</span>
+                </div>
+                <div class="surprise-box" data-index="1" data-opened="false">
+                    <span class="badge">NEW</span>
+                    <span class="icon">☀️</span>
+                    <span class="label">你的笑容</span>
+                </div>
+                <div class="surprise-box" data-index="2" data-opened="false">
+                    <span class="badge">NEW</span>
+                    <span class="icon">🌙</span>
+                    <span class="label">想你了</span>
+                </div>
+                <div class="surprise-box" data-index="3" data-opened="false">
+                    <span class="badge">NEW</span>
+                    <span class="icon">🎵</span>
+                    <span class="label">小情歌</span>
+                </div>
+                <div class="surprise-box" data-index="4" data-opened="false">
+                    <span class="badge">NEW</span>
+                    <span class="icon">🤭</span>
+                    <span class="label">悄悄话</span>
+                </div>
+                <div class="surprise-box" data-index="5" data-opened="false">
+                    <span class="badge">NEW</span>
+                    <span class="icon">💝</span>
+                    <span class="label">给你的</span>
+                </div>
+                <div class="surprise-box" data-index="6" data-opened="false">
+                    <span class="badge">NEW</span>
+                    <span class="icon">🌟</span>
+                    <span class="label">因为你</span>
+                </div>
+                <div class="surprise-box" data-index="7" data-opened="false">
+                    <span class="badge">NEW</span>
+                    <span class="icon">💌</span>
+                    <span class="label">我爱你</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================================================================
+    LOVE QUIZ
+    ================================================================ -->
+    <section id="quiz">
+        <div class="section-inner">
+            <h2>🧐 你有多了解他？</h2>
+            <div class="sub-q">来做个超甜的小测试吧～</div>
+            <div class="quiz-card" id="quizCard">
+                <div class="quiz-question" id="quizQuestion">问题加载中...</div>
+                <div class="quiz-options" id="quizOptions"></div>
+                <div class="quiz-progress" id="quizProgress"></div>
+                <div class="quiz-score" id="quizScore"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================================================================
+    REASONS I LOVE YOU
+    ================================================================ -->
+    <section id="reasons">
+        <div class="section-inner">
+            <h2>💖 喜欢你的 N 个理由</h2>
+            <div class="sub-r">每一条都是真心话 💕</div>
+            <div class="reasons-container" id="reasonsContainer">
+                <!-- filled by JS -->
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================================================================
+    LOVE LETTER
+    ================================================================ -->
+    <section id="letter-section">
+        <div class="section-inner">
+            <h2>💌 给你的一封信</h2>
+            <div class="love-letter-box">
+                <div class="letter-text" id="letterText">
+                    <span class="cursor-blink" id="letterCursor"></span>
+                </div>
+                <div class="letter-sign" id="letterSign">—— 永远爱你的 胡哲铭 ❤️</div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ================================================================
+    GRAND FINALE
+    ================================================================ -->
+    <section id="finale">
+        <div class="section-inner">
+            <div class="photo-wall">
+                <div class="polaroid" style="--r:-5deg;" onclick="openLightbox('photo-1.jpg')">
+                    <img src="photo-1.jpg" alt="照片1" />
+                </div>
+                <div class="polaroid" style="--r:4deg;" onclick="openLightbox('photo-2.jpg')">
+                    <img src="photo-2.jpg" alt="照片2" />
+                </div>
+                <div class="polaroid" style="--r:-3deg;" onclick="openLightbox('photo-3.jpg')">
+                    <img src="photo-3.jpg" alt="照片3" />
+                </div>
+            </div>
+            <div class="big-text">
+                李婷，我喜欢你 ❤️
+            </div>
+            <p>
+                从过去到现在，从今往后，一直都是你。
+            </p>
+            <button class="btn-finale" id="btnFinale">🎉 点这里放烟花</button>
+            <div class="streamer-text">💕 遇见你是我最美的幸运 💕</div>
+        </div>
+    </section>
+
+
+    <!-- ================================================================
+    JAVASCRIPT
+    ================================================================ -->
+    <script>
+        // ============================================================
+        //  1. Floating Hearts & Petals
+        // ============================================================
+        const floatingContainer = document.getElementById('floatingContainer');
+        const floatEmojis = ['❤️', '💕', '💖', '💗', '🌸', '🌺', '💘', '💝', '✨', '🥰'];
+
+        function createFloatItem() {
+            const el = document.createElement('div');
+            el.className = 'float-item';
+            el.textContent = floatEmojis[Math.floor(Math.random() * floatEmojis.length)];
+            const size = 14 + Math.random() * 22;
+            el.style.fontSize = size + 'px';
+            el.style.left = Math.random() * 100 + '%';
+            el.style.animationDuration = (10 + Math.random() * 16) + 's';
+            el.style.animationDelay = (Math.random() * 8) + 's';
+            floatingContainer.appendChild(el);
+            setTimeout(() => el.remove(), 28000);
+        }
+        for (let i = 0; i < 18; i++) setTimeout(createFloatItem, i * 250);
+        setInterval(createFloatItem, 1000);
+
+        // ============================================================
+        //  2. Sparkle on click
+        // ============================================================
+        const sparkleEmojis = ['✨', '💖', '❤️', '🌸', '💕', '🌟', '⭐', '💗'];
+        document.addEventListener('click', (e) => {
+            for (let i = 0; i < 5; i++) {
+                const s = document.createElement('div');
+                s.className = 'sparkle';
+                s.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+                s.style.left = (e.clientX + (Math.random() - 0.5) * 70) + 'px';
+                s.style.top = (e.clientY + (Math.random() - 0.5) * 70) + 'px';
+                s.style.fontSize = (12 + Math.random() * 16) + 'px';
+                document.body.appendChild(s);
+                setTimeout(() => s.remove(), 1100);
+            }
+        });
+
+        // ============================================================
+        //  3. Surprise Boxes
+        // ============================================================
+        const surprises = [
+            { icon: '🌸', title: '第一次见你', text: '第一眼看到你的时候，我的心就漏跳了一拍。你笑起来的样子，我记到了现在。' },
+            { icon: '☀️', title: '你的笑容', text: '你笑起来的时候，感觉整个世界都亮了。比阳光还温暖，比蜜糖还甜。' },
+            { icon: '🌙', title: '想你的夜晚', text: '每当夜幕降临，我就会特别想你。想你有没有好好吃饭，想你有没有也在想我。' },
+            { icon: '🎵', title: '写给婷的小情歌', text: '你是我心里最动听的旋律，哼一遍就忘不掉，听一辈子都不腻。' },
+            { icon: '🤭', title: '悄悄告诉你', text: '其实每次和你在一起，我都在偷偷看你。因为看着你的时候，我就觉得很幸福。' },
+            { icon: '💝', title: '给你的承诺', text: '我会一直在你身边。开心的时候陪你笑，难过的时候给你抱，下雨的时候给你撑伞。' },
+            { icon: '🌟', title: '因为你', text: '因为你，我的世界变得不一样了。每一天都有了期待，每一个明天都想和你一起过。' },
+            { icon: '💌', title: '李婷，我爱你', text: '这三个字，说多少次都不够。李婷，我爱你。很爱很爱你。以后还要更爱你。' },
+        ];
+
+        const overlay = document.getElementById('surpriseOverlay');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalText = document.getElementById('modalText');
+        const modalClose = document.getElementById('modalClose');
+
+        document.querySelectorAll('.surprise-box').forEach((box) => {
+            box.addEventListener('click', () => {
+                const idx = parseInt(box.dataset.index);
+                const s = surprises[idx];
+                modalIcon.textContent = s.icon;
+                modalTitle.textContent = s.title;
+                modalText.textContent = s.text;
+                overlay.classList.add('show');
+                box.classList.add('opened');
+                box.dataset.opened = 'true';
+            });
+        });
+
+        modalClose.addEventListener('click', () => {
+            overlay.classList.remove('show');
+        });
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.classList.remove('show');
+        });
+
+        // ============================================================
+        //  4. Quiz (关于"他"的小测试)
+        // ============================================================
+        const quizData = [
+            { q: '他最喜欢你哪里？', options: ['你的眼睛', '你的笑容', '你的性格', '全部！！！'], correct: 3 },
+            { q: '他最喜欢和你一起做什么？', options: ['看电影', '散步聊天', '一起吃饭', '只要和你在一起都行'], correct: 3 },
+            { q: '他最常说的一句话是什么？', options: ['我爱你', '在干嘛', '想你了', '早点休息'], correct: 3 },
+            { q: '他最喜欢什么颜色？', options: ['蓝色', '粉色', '黑色', '你喜欢的颜色他都喜欢'], correct: 3 },
+            { q: '他觉得自己最幸运的事是什么？', options: ['找到好工作', '遇见你', '有很多朋友', '身体健康'], correct: 1 },
+        ];
+
+        let quizIndex = 0;
+        let quizCorrect = 0;
+        let quizAnswered = false;
+
+        const quizQuestion = document.getElementById('quizQuestion');
+        const quizOptions = document.getElementById('quizOptions');
+        const quizProgress = document.getElementById('quizProgress');
+        const quizScore = document.getElementById('quizScore');
+
+        function renderQuiz() {
+            if (quizIndex >= quizData.length) {
+                // finished
+                quizQuestion.textContent = '🎉 测试完成！';
+                quizOptions.innerHTML = '';
+                quizScore.innerHTML = `你答对了 <strong>${quizCorrect}/${quizData.length}</strong> 题！<br/>${
+                    quizCorrect === quizData.length ? '满分！你果然是最懂他的人 💕' :
+                    quizCorrect >= 3 ? '不错不错，很了解他嘛 😘' :
+                    '看来还需要多了解他一点哦，不过没关系，来日方长 💗'
+                }`;
+                return;
+            }
+
+            const q = quizData[quizIndex];
+            quizQuestion.textContent = `Q${quizIndex + 1}. ${q.q}`;
+            quizOptions.innerHTML = '';
+            quizAnswered = false;
+
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = opt;
+                btn.addEventListener('click', () => {
+                    if (quizAnswered) return;
+                    quizAnswered = true;
+                    if (i === q.correct) {
+                        btn.classList.add('correct');
+                        quizCorrect++;
+                    } else {
+                        btn.classList.add('wrong');
+                        // show correct answer
+                        document.querySelectorAll('.quiz-option')[q.correct].classList.add('correct');
+                    }
+                    // disable all
+                    document.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
+                    // update progress dots
+                    const dots = document.querySelectorAll('.quiz-dot');
+                    if (dots[quizIndex]) {
+                        dots[quizIndex].classList.add(i === q.correct ? 'done' : 'wrong-dot');
+                    }
+                    quizScore.innerHTML = `当前得分：<strong>${quizCorrect}/${quizIndex + 1}</strong>`;
+
+                    setTimeout(() => {
+                        quizIndex++;
+                        renderQuiz();
+                    }, 1200);
+                });
+                quizOptions.appendChild(btn);
+            });
+
+            // render progress dots
+            quizProgress.innerHTML = '';
+            for (let i = 0; i < quizData.length; i++) {
+                const dot = document.createElement('span');
+                dot.className = 'quiz-dot';
+                if (i < quizIndex) dot.classList.add('done');
+                quizProgress.appendChild(dot);
+            }
+        }
+
+        renderQuiz();
+
+        // ============================================================
+        //  5. Reasons (scroll reveal)
+        // ============================================================
+        const reasons = [
+            '你总是很细心地记得我说过的话',
+            '你认真的时候特别迷人',
+            '你有点小迷糊，但迷糊得让人想保护你',
+            '你善良，对身边的人都很好',
+            '你撒娇的时候我完全招架不住',
+            '你吃东西满足的样子像个小朋友',
+            '你总是能让我心情变好',
+            '你有时候嘴硬，但其实心特别软',
+            '你的拥抱有魔法，可以治愈一切',
+            '你是这个世界上独一无二的李婷',
+            '没有为什么，因为是你，所以都喜欢 ❤️',
+        ];
+
+        const reasonsContainer = document.getElementById('reasonsContainer');
+        reasons.forEach((r, i) => {
+            const div = document.createElement('div');
+            div.className = 'reason-item';
+            div.innerHTML = `<span class="num">#${i + 1}</span> ${r}`;
+            reasonsContainer.appendChild(div);
+        });
+
+        // Intersection Observer for reasons
+        const reasonObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const items = reasonsContainer.querySelectorAll('.reason-item');
+                    items.forEach((item, i) => {
+                        setTimeout(() => item.classList.add('show'), i * 120);
+                    });
+                    reasonObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        reasonObserver.observe(reasonsContainer);
+
+        // ============================================================
+        //  6. Love Letter (typewriter)
+        // ============================================================
+        const letterText = document.getElementById('letterText');
+        const letterCursor = document.getElementById('letterCursor');
+        const letterSign = document.getElementById('letterSign');
+
+        const letterContent =
+            '亲爱的婷：\n\n' +
+            '遇见你，是我这辈子最美好的意外。\n' +
+            '你的笑容像春天的风，轻轻吹进我的心里，\n' +
+            '然后就再也没有离开过。\n\n' +
+            '和你在一起的每一天，\n' +
+            '平凡的日子都会发光。\n' +
+            '你说过的每一句话，我都偷偷记在心里；\n' +
+            '你笑起来的每一个瞬间，我都想永远珍藏。\n\n' +
+            '我想和你一起做很多很多事：\n' +
+            '<span class="highlight">一起看日出日落，一起旅行冒险，\n' +
+            '一起窝在沙发上看电影，一起慢慢变老。</span>\n\n' +
+            '李婷，我喜欢你。\n' +
+            '不是一点点，是很多很多。';
+
+        let letterIdx = 0;
+        let letterHtml = '';
+
+        function typeLetter() {
+            if (letterIdx < letterContent.length) {
+                const ch = letterContent[letterIdx];
+                if (ch === '\n') {
+                    letterHtml += '<br/>';
+                } else {
+                    letterHtml += ch;
+                }
+                letterIdx++;
+                // replace innerHTML carefully, preserving cursor
+                letterText.innerHTML = letterHtml + '<span class="cursor-blink" id="letterCursor"></span>';
+                // reassign cursor ref
+                setTimeout(typeLetter, 35);
+            } else {
+                // done
+                letterText.innerHTML = letterHtml;
+                letterSign.classList.add('show');
+                // final sparkle burst
+                for (let i = 0; i < 6; i++) {
+                    setTimeout(() => {
+                        const s = document.createElement('div');
+                        s.className = 'sparkle';
+                        s.textContent = ['💖', '✨', '❤️', '🌸', '🥰', '💕'][i];
+                        s.style.left = (window.innerWidth * (0.2 + Math.random() * 0.6)) + 'px';
+                        s.style.top = (window.innerHeight * (0.3 + Math.random() * 0.4)) + 'px';
+                        s.style.fontSize = (18 + Math.random() * 16) + 'px';
+                        document.body.appendChild(s);
+                        setTimeout(() => s.remove(), 1100);
+                    }, i * 200);
+                }
+            }
+        }
+
+        // start typing when letter section is visible
+        let letterStarted = false;
+        const letterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !letterStarted) {
+                    letterStarted = true;
+                    setTimeout(typeLetter, 500);
+                    letterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        letterObserver.observe(document.getElementById('letter-section'));
+
+        // ============================================================
+        //  7. Confetti System
+        // ============================================================
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        const ctx = confettiCanvas.getContext('2d');
+
+        function resizeConfetti() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeConfetti);
+        resizeConfetti();
+
+        const confettiColors = ['#ec407a', '#f06292', '#f48fb1', '#ff4081', '#e91e63', '#ff80ab', '#ffd54f', '#7c4dff', '#ff6f00'];
+
+        class ConfettiPiece {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * confettiCanvas.width;
+                this.y = -20;
+                this.size = 5 + Math.random() * 10;
+                this.color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                this.speedY = 1.2 + Math.random() * 3.5;
+                this.speedX = (Math.random() - 0.5) * 3;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 8;
+                this.osc = Math.random() * Math.PI * 2;
+                this.oscSpeed = 0.02 + Math.random() * 0.03;
+                this.oscRange = 15 + Math.random() * 40;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX + Math.sin(this.osc) * 0.8;
+                this.osc += this.oscSpeed;
+                this.rotation += this.rotationSpeed;
+                if (this.y > confettiCanvas.height + 20) { this.reset(); this.y = -20; }
+                if (this.x < -50) this.x = confettiCanvas.width + 50;
+                if (this.x > confettiCanvas.width + 50) this.x = -50;
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.fillStyle = this.color;
+                ctx.shadowColor = 'rgba(233,30,99,0.15)';
+                ctx.shadowBlur = 4;
+                ctx.fillRect(-this.size / 2, -this.size / 4, this.size, this.size / 2);
+                ctx.restore();
+            }
+        }
+
+        let confettiPieces = [];
+        let confettiRunning = false;
+
+        function startConfetti(count = 150) {
+            confettiPieces = [];
+            for (let i = 0; i < count; i++) confettiPieces.push(new ConfettiPiece());
+            confettiRunning = true;
+            animateConfetti();
+        }
+
+        function animateConfetti() {
+            if (!confettiRunning) return;
+            ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            for (const p of confettiPieces) { p.update(); p.draw(); }
+            requestAnimationFrame(animateConfetti);
+        }
+
+        function stopConfetti() {
+            confettiRunning = false;
+            ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        }
+
+        // ============================================================
+        //  8. Grand Finale Button
+        // ============================================================
+        document.getElementById('btnFinale').addEventListener('click', () => {
+            startConfetti(250);
+            // burst hearts
+            for (let i = 0; i < 20; i++) setTimeout(createFloatItem, i * 60);
+            // also big sparkles
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const s = document.createElement('div');
+                    s.className = 'sparkle';
+                    s.textContent = ['💖', '🎉', '❤️', '🌸', '🥰', '💕', '✨', '🎊'][Math.floor(Math.random() * 8)];
+                    s.style.left = (window.innerWidth * (0.1 + Math.random() * 0.8)) + 'px';
+                    s.style.top = (window.innerHeight * (0.1 + Math.random() * 0.8)) + 'px';
+                    s.style.fontSize = (22 + Math.random() * 20) + 'px';
+                    document.body.appendChild(s);
+                    setTimeout(() => s.remove(), 1100);
+                }, i * 150);
+            }
+            // auto-stop after a while
+            setTimeout(stopConfetti, 12000);
+        });
+
+        // ============================================================
+        //  9. Keyboard easter egg: type "TING" → heart burst
+        // ============================================================
+        let keyBuffer = '';
+        document.addEventListener('keydown', (e) => {
+            keyBuffer += e.key.toUpperCase();
+            if (keyBuffer.length > 8) keyBuffer = keyBuffer.slice(-8);
+            if (keyBuffer.includes('TING')) {
+                keyBuffer = '';
+                for (let i = 0; i < 30; i++) setTimeout(createFloatItem, i * 60);
+                for (let i = 0; i < 12; i++) {
+                    setTimeout(() => {
+                        const s = document.createElement('div');
+                        s.className = 'sparkle';
+                        s.textContent = ['💖', '❤️', '🌸', '💕', '🥰'][Math.floor(Math.random() * 5)];
+                        s.style.left = (window.innerWidth * (0.1 + Math.random() * 0.8)) + 'px';
+                        s.style.top = (window.innerHeight * (0.1 + Math.random() * 0.8)) + 'px';
+                        s.style.fontSize = (20 + Math.random() * 24) + 'px';
+                        document.body.appendChild(s);
+                        setTimeout(() => s.remove(), 1100);
+                    }, i * 120);
+                }
+            }
+        });
+
+        // ============================================================
+        //  10. Footer extra: show current date love message
+        // ============================================================
+        console.log('💕 李婷，这是给你的惊喜 💕');
+        console.log('❤️  Made with love ❤️');
+
+        // ============================================================
+        //  11. On load: a little love toast
+        // ============================================================
+        window.addEventListener('load', () => {
+            // small delayed sparkle burst on load
+            setTimeout(() => {
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        const s = document.createElement('div');
+                        s.className = 'sparkle';
+                        s.textContent = ['💖', '✨', '❤️', '🌸'][Math.floor(Math.random() * 4)];
+                        s.style.left = (window.innerWidth * (0.15 + Math.random() * 0.7)) + 'px';
+                        s.style.top = (window.innerHeight * (0.2 + Math.random() * 0.6)) + 'px';
+                        s.style.fontSize = (18 + Math.random() * 14) + 'px';
+                        document.body.appendChild(s);
+                        setTimeout(() => s.remove(), 1100);
+                    }, i * 150);
+                }
+            }, 800);
+        });
+        // ============================================================
+        //  12. Photo lightbox
+        // ============================================================
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.add('show');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('show');
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>
